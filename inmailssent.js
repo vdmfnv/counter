@@ -20,7 +20,7 @@ const intervalId = setInterval(() => {
   // Simulate random count increment with smoothing
   const minIncrement = 13;
   const maxIncrement = 37;
-  let randomIncrement = Math.floor(Math.random() * (maxIncrement - minIncrement + 1)) + minIncrement;
+  let randomIncrement = Math.floor(Math.random() * (maxIncrement - minIncrement + 13)) + minIncrement;
   randomIncrement += Math.floor(Math.random() * (previousIncrement / 2)); // Add variation based on previous increment
   previousIncrement = randomIncrement; // Update previous increment for smoothing
 
