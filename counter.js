@@ -1,28 +1,20 @@
-function counter(elementId, startCount, endCount, minDelay, maxDelay) {
-  const counterElement = document.getElementById(elementId);
+const minDelay = 100; // Minimum delay in milliseconds (adjust as needed)
+const maxDelay = 500; // Maximum delay in milliseconds (adjust as needed)
+const endCount = 100; // Target count (adjust as needed)
 
-  // Get current date and time
-  const now = new Date();
+let actualCount = 0; // Initialize actual count
 
-  // Calculate ideal count based on visit time
-  const targetStartDate = new Date(2024, 7, 1); // Year, Month (0-indexed), Day
-  const elapsedTime = now.getTime() - targetStartDate.getTime();
-  const idealCount = Math.floor(startCount + elapsedTime / (minDelay * 1000)); // Convert delay to milliseconds
+const counterElement = document.getElementById("my-counter"); // Get element reference
 
-  // Display the ideal count with a message
-  counterElement.textContent = `As of ${now.toLocaleString()}, you would have counted to approximately ${idealCount} with random delays.`;
+const intervalId = setInterval(() => {
+  actualCount++; // Increment actual count
+  const delay = Math.random() * (maxDelay - minDelay) + minDelay; // Generate random delay
+  setTimeout(() => {
+    counterElement.textContent = `As of ${new Date().toLocaleString()}, you have counted to ${actualCount} with random delays.`;
+  }, delay * 1000); // Convert delay to milliseconds
+}, 1000); // Update every second (adjust as needed)
 
-  // Optional: Simulate counting animation (doesn't involve actual delays)
-  let simulatedCount = startCount;
-  const intervalId = setInterval(() => {
-    simulatedCount++;
-    counterElement.textContent = `Simulated count: ${simulatedCount}`;
-    if (simulatedCount >= idealCount) {
-      clearInterval(intervalId);
-      counterElement.textContent += "\nCounting finished (simulation)";
-    }
-  }, 10); // Adjust interval for faster simulation (doesn't reflect actual delays)
+if (actualCount >= endCount) {
+  clearInterval(intervalId);
+  counterElement.textContent += "\nCounting finished";
 }
-
-// Example usage
-counter("my-counter", 570345890, 10**12, 0.05, 0.15);
